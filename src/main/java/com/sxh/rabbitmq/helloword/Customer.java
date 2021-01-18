@@ -16,7 +16,7 @@ import java.util.concurrent.TimeoutException;
 public class Customer {
     // 消费消息
     public static void main(String[] args) throws IOException, TimeoutException {
-        // 1.使用工具类(Singleton)获取连接对象
+        // 1.使用工具类获取连接对象
         Connection connection = ConnectionUtil.creatConnection();
 
         // 2.获取连接中的通道

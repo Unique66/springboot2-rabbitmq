@@ -35,7 +35,7 @@ public class Provider {
 //        // 1.获取连接对象
 //        Connection connection = connectionFactory.newConnection();
 
-        // 1.使用工具类(Singleton)获取连接对象
+        // 1.使用工具类获取连接对象
         Connection connection = ConnectionUtil.creatConnection();
 
         // 2.获取连接中的通道
@@ -52,7 +52,7 @@ public class Provider {
         // 4.发布消息
         // 参数1：exchange 交换机名称
         // 参数2：routingKey 队列名称
-        // 参数3：传递消息额外配置
+        // 参数3：传递消息额外配置   MessageProperties.MINIMAL_PERSISTENT_BASIC 消息持久化
         // 参数4：消息的具体内容
         channel.basicPublish("", "hello", MessageProperties.MINIMAL_PERSISTENT_BASIC,
                 "hello rabbitmq".getBytes());

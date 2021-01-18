@@ -18,7 +18,7 @@ public class Provider {
     // 生产消息
     @Test
     public void testSendMessage() throws IOException, TimeoutException {
-        // 1.使用工具类(Singleton)获取连接对象
+        // 1.使用工具类获取连接对象
         Connection connection = ConnectionUtil.creatConnection();
 
         // 2.获取连接中的通道
