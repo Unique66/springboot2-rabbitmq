@@ -1,5 +1,6 @@
 package com.sxh.rabbitmq.util;
 
+import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 
@@ -12,23 +13,11 @@ import java.util.concurrent.TimeoutException;
  * @date 2021/1/15 1:05
  */
 public class ConnectionUtil {
-    private static volatile ConnectionUtil connectionUtil;
-    private ConnectionUtil() {}
+    private static ConnectionFactory connectionFactory;
 
-    public static ConnectionUtil getInstance() {
-        if (connectionUtil == null) {
-            synchronized (ConnectionUtil.class) {
-                if (connectionUtil == null) {
-                    connectionUtil = new ConnectionUtil();
-                }
-            }
-        }
-        return connectionUtil;
-    }
-
-    public Connection creatConnection() throws IOException, TimeoutException {
+    static {
         // 创建连接mq 的连接工厂对象
-        ConnectionFactory connectionFactory = new ConnectionFactory();
+        connectionFactory = new ConnectionFactory();
         // 设置rabbitmq 的主机
         connectionFactory.setHost("169.254.171.100");
         // 设置端口号
@@ -38,8 +27,20 @@ public class ConnectionUtil {
         // 设置访问账号和密码
         connectionFactory.setUsername("test");
         connectionFactory.setPassword("123456");
+    }
 
+    public static Connection creatConnection() throws IOException, TimeoutException {
         Connection connection = connectionFactory.newConnection();
         return connection;
+    }
+
+    public static void closeConnectionAndChanel(Channel channel, Connection connection)
+            throws IOException, TimeoutException {
+        if (channel != null) {
+            channel.close();
+        }
+        if (connection != null) {
+            connection.close();
+        }
     }
 }

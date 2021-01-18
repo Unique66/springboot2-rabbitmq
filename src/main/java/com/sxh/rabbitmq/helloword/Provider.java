@@ -3,6 +3,7 @@ package com.sxh.rabbitmq.helloword;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.MessageProperties;
 import com.sxh.rabbitmq.util.ConnectionUtil;
 import org.junit.Test;
 
@@ -35,7 +36,7 @@ public class Provider {
 //        Connection connection = connectionFactory.newConnection();
 
         // 1.使用工具类(Singleton)获取连接对象
-        Connection connection = ConnectionUtil.getInstance().creatConnection();
+        Connection connection = ConnectionUtil.creatConnection();
 
         // 2.获取连接中的通道
         Channel channel = connection.createChannel();
@@ -46,16 +47,16 @@ public class Provider {
         // 参数3：exclusive 是否独占队列 true-独占队列 false-不独占
         // 参数4：autoDelete 是否消费完后自动删除队列 true-自动删除  false-不自动删除
         // 参数5：arguments 额外附加参数
-        channel.queueDeclare("hello", false, false, false, null);
+        channel.queueDeclare("hello", true, false, true, null);
 
         // 4.发布消息
         // 参数1：exchange 交换机名称
         // 参数2：routingKey 队列名称
         // 参数3：传递消息额外配置
         // 参数4：消息的具体内容
-        channel.basicPublish("", "hello", null, "hello rabbitmq".getBytes());
+        channel.basicPublish("", "hello", MessageProperties.MINIMAL_PERSISTENT_BASIC,
+                "hello rabbitmq".getBytes());
 
-        channel.close();
-        connection.close();
+        ConnectionUtil.closeConnectionAndChanel(channel, connection);
     }
 }

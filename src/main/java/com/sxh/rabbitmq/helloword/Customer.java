@@ -17,7 +17,7 @@ public class Customer {
     // 消费消息
     public static void main(String[] args) throws IOException, TimeoutException {
         // 1.使用工具类(Singleton)获取连接对象
-        Connection connection = ConnectionUtil.getInstance().creatConnection();
+        Connection connection = ConnectionUtil.creatConnection();
 
         // 2.获取连接中的通道
         Channel channel = connection.createChannel();
@@ -28,7 +28,7 @@ public class Customer {
         // 参数3：exclusive 是否独占队列 true-独占队列 false-不独占
         // 参数4：autoDelete 是否消费完后自动删除队列 true-自动删除  false-不自动删除
         // 参数5：arguments 额外附加参数
-        channel.queueDeclare("hello", false, false, false, null);
+        channel.queueDeclare("hello", true, false, true, null);
 
         // 4.消费消息
         channel.basicConsume("hello", true, new DefaultConsumer(channel) {
