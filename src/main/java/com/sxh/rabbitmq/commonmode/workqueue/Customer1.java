@@ -1,7 +1,7 @@
-package com.sxh.rabbitmq.workqueue;
+package com.sxh.rabbitmq.commonmode.workqueue;
 
 import com.rabbitmq.client.*;
-import com.sxh.rabbitmq.util.ConnectionUtil;
+import com.sxh.rabbitmq.commonmode.utils.RabbitMQConnectionUtils;
 
 import java.io.IOException;
 import java.time.LocalTime;
@@ -12,10 +12,10 @@ import java.util.concurrent.TimeoutException;
  * @description 任务模型  一对多 多 <---> 消费者
  * @date 2021/1/18 22:52
  */
-public class Customer2 {
+public class Customer1 {
     public static void main(String[] args) throws IOException, TimeoutException {
         // 1.使用工具类获取连接对象
-        Connection connection = ConnectionUtil.creatConnection();
+        Connection connection = RabbitMQConnectionUtils.creatConnection();
 
         // 2.获取连接中的通道
         Channel channel = connection.createChannel();
@@ -35,12 +35,7 @@ public class Customer2 {
             @Override
             public void handleDelivery(String consumerTag, Envelope envelope,
                                        AMQP.BasicProperties properties, byte[] body) throws IOException {
-                try {
-                    Thread.sleep(2000); // 模拟个别消费者消费消息过长的场景
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                System.out.println(LocalTime.now() + "消费者2----------->" + new String(body));
+                System.out.println(LocalTime.now() + "消费者1----------->" + new String(body));
                 // ☆☆☆参数1：确认队列中那个具体消息tag   参数2：是否开启多个消息同时确认
                 channel.basicAck(envelope.getDeliveryTag(), false); // 也就是手动确认消息
             }

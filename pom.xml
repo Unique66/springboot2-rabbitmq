@@ -4,6 +4,14 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
+  <!--引入springboot2-->
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.4.1</version>
+    <relativePath/> <!-- lookup parent from repository -->
+  </parent>
+
   <groupId>org.example</groupId>
   <artifactId>springboot2-rabbitmq</artifactId>
   <version>1.0-SNAPSHOT</version>
@@ -32,6 +40,16 @@
       <groupId>com.rabbitmq</groupId>
       <artifactId>amqp-client</artifactId>
       <version>5.7.3</version>
+    </dependency>
+
+    <!--以下引入springboot2 的一些依赖-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-amqp</artifactId>
     </dependency>
   </dependencies>
 

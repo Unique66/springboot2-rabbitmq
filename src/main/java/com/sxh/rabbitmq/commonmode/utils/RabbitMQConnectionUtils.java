@@ -1,4 +1,4 @@
-package com.sxh.rabbitmq.util;
+package com.sxh.rabbitmq.commonmode.utils;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
@@ -12,7 +12,7 @@ import java.util.concurrent.TimeoutException;
  * @description 生成消息队列的
  * @date 2021/1/15 1:05
  */
-public class ConnectionUtil {
+public class RabbitMQConnectionUtils {
     private static ConnectionFactory connectionFactory;
 
     static {

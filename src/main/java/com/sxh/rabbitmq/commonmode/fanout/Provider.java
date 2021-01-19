@@ -1,8 +1,8 @@
-package com.sxh.rabbitmq.fanout;
+package com.sxh.rabbitmq.commonmode.fanout;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
-import com.sxh.rabbitmq.util.ConnectionUtil;
+import com.sxh.rabbitmq.commonmode.utils.RabbitMQConnectionUtils;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -19,7 +19,7 @@ public class Provider {
     @Test
     public void testSendMessage() throws IOException, TimeoutException {
         // 1.使用工具类获取连接对象
-        Connection connection = ConnectionUtil.creatConnection();
+        Connection connection = RabbitMQConnectionUtils.creatConnection();
 
         // 2.获取连接中的通道
         Channel channel = connection.createChannel();
@@ -35,6 +35,6 @@ public class Provider {
         // 参数4：消息的具体内容
         channel.basicPublish("broadcast", "", null, "fanout message rabbitmq".getBytes());
         // 5.关闭连接
-        ConnectionUtil.closeConnectionAndChanel(channel, connection);
+        RabbitMQConnectionUtils.closeConnectionAndChanel(channel, connection);
     }
 }

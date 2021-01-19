@@ -1,7 +1,7 @@
-package com.sxh.rabbitmq.fanout;
+package com.sxh.rabbitmq.commonmode.fanout;
 
 import com.rabbitmq.client.*;
-import com.sxh.rabbitmq.util.ConnectionUtil;
+import com.sxh.rabbitmq.commonmode.utils.RabbitMQConnectionUtils;
 
 import java.io.IOException;
 import java.time.LocalTime;
@@ -15,7 +15,7 @@ import java.util.concurrent.TimeoutException;
 public class Customer3 {
     public static void main(String[] args) throws IOException, TimeoutException {
         // 1.使用工具类获取连接对象
-        Connection connection = ConnectionUtil.creatConnection();
+        Connection connection = RabbitMQConnectionUtils.creatConnection();
 
         // 2.获取连接中的通道
         Channel channel = connection.createChannel();

@@ -1,10 +1,9 @@
-package com.sxh.rabbitmq.helloword;
+package com.sxh.rabbitmq.commonmode.helloword;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.MessageProperties;
-import com.sxh.rabbitmq.util.ConnectionUtil;
+import com.sxh.rabbitmq.commonmode.utils.RabbitMQConnectionUtils;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -36,7 +35,7 @@ public class Provider {
 //        Connection connection = connectionFactory.newConnection();
 
         // 1.使用工具类获取连接对象
-        Connection connection = ConnectionUtil.creatConnection();
+        Connection connection = RabbitMQConnectionUtils.creatConnection();
 
         // 2.获取连接中的通道
         Channel channel = connection.createChannel();
@@ -57,6 +56,6 @@ public class Provider {
         channel.basicPublish("", "hello", MessageProperties.MINIMAL_PERSISTENT_BASIC,
                 "hello rabbitmq".getBytes());
 
-        ConnectionUtil.closeConnectionAndChanel(channel, connection);
+        RabbitMQConnectionUtils.closeConnectionAndChanel(channel, connection);
     }
 }

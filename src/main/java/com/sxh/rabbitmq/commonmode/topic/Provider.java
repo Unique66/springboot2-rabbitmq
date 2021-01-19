@@ -1,8 +1,8 @@
-package com.sxh.rabbitmq.topic;
+package com.sxh.rabbitmq.commonmode.topic;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
-import com.sxh.rabbitmq.util.ConnectionUtil;
+import com.sxh.rabbitmq.commonmode.utils.RabbitMQConnectionUtils;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -19,7 +19,7 @@ public class Provider {
     @Test
     public void provider() throws IOException, TimeoutException {
         // 1.获得rabbitMQ 的链接
-        Connection connection = ConnectionUtil.creatConnection();
+        Connection connection = RabbitMQConnectionUtils.creatConnection();
         // 2.创建通道
         Channel channel = connection.createChannel();
         // 3.声明交换机
@@ -32,6 +32,6 @@ public class Provider {
                 ("发送消息到topic routingKey：[" + routingKey + "]").getBytes());
 
         // 5.关闭资源
-        ConnectionUtil.closeConnectionAndChanel(channel, connection);
+        RabbitMQConnectionUtils.closeConnectionAndChanel(channel, connection);
     }
 }
